@@ -9,7 +9,7 @@ char *BootTime_Status_file="/opt/BootTime_Status.xml";
 int BootTime_Status_xml_frame()
 {
 	int Total_Server_Apps=0,Total_Running_apps=0;
-	fprintf(stdout,"\n\n BootTime_Status.xml Framing ...\n\n");
+	//fprintf(stdout,"\n\n BootTime_Status.xml Framing ...\n\n");
 	xmlDocPtr doc = NULL;       /* document pointer */
 	xmlNodePtr root_node = NULL, childnode = NULL, Runningchildnode = NULL;/* node pointers */
 	char *ptr=NULL,Buffer[128]="";
@@ -43,7 +43,7 @@ int BootTime_Status_xml_frame()
 		int File_day=0,File_month=0,File_year=0;
 		sscanf(Buff[8],"%02d%02d%04d/%d/%d/%d/%d",&File_day,&File_month,&File_year,&Day.Total_Solt1_secs,&Day.Total_Solt2_secs,&Day.Total_Solt3_secs,&Day.Total_Solt4_secs);
 		sprintf(module.DOT.Date,"%04d-%02d-%02d",File_year,File_month,File_day);
-		printf("module.DOT.Date = %s\n",module.DOT.Date);
+		//printf("module.DOT.Date = %s\n",module.DOT.Date);
 		sprintf(module.DOT.Slot1,"%d",Day.Total_Solt1_secs);
 		sprintf(module.DOT.Slot2,"%d",Day.Total_Solt2_secs);
 		sprintf(module.DOT.Slot3,"%d",Day.Total_Solt3_secs);
@@ -53,7 +53,7 @@ int BootTime_Status_xml_frame()
 		{
 			sscanf(Buff[9],"%02d%02d%04d/%d/%d/%d/%d",&File_day,&File_month,&File_year,&Day.Total_work_secs,&Day.Total_adapter_secs,&Day.Total_charging_secs,&Day.Total_discharging_secs);
 			sprintf(module.BatteryInfo.Date,"%04d-%02d-%02d",File_year,File_month,File_day);
-			printf("module.BatteryInfo.Date = %s\n",module.BatteryInfo.Date);
+		//	printf("module.BatteryInfo.Date = %s\n",module.BatteryInfo.Date);
 			sprintf(module.BatteryInfo.Day_worked_mins,"%d",Day.Total_work_secs);
 			sprintf(module.BatteryInfo.Day_adapter_mins,"%d",Day.Total_adapter_secs);
 			sprintf(module.BatteryInfo.Day_charged_mins,"%d",Day.Total_charging_secs);
@@ -69,8 +69,8 @@ int BootTime_Status_xml_frame()
 	}
 
 
-	if( CONFIG.Pinpad )
-		xmlNewChild(root_node, NULL, BAD_CAST "Pinpad", BAD_CAST module.pinpad);
+	//if( CONFIG.Pinpad )
+	//	xmlNewChild(root_node, NULL, BAD_CAST "Pinpad", BAD_CAST module.pinpad);
 	if ( strstr(Buff[22],"Alive") != NULL )
 		xmlNewChild(root_node, NULL, BAD_CAST "Ethernet", BAD_CAST "Connected");
 	else 
@@ -163,7 +163,7 @@ int BootTime_Status_xml_frame()
 
 	//Total_Server_Apps = Get_Total_Server_Apps();
 
-	//fprintf(stdout," Total Server Apps = %d\n",Total_Server_Apps);
+	////fprintf(stdout," Total Server Apps = %d\n",Total_Server_Apps);
 
 	//if ( Total_Server_Apps > 0 )
 	//	Applications_Details(Total_Server_Apps,childnode);
@@ -171,7 +171,7 @@ int BootTime_Status_xml_frame()
 	Runningchildnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofRunningApplications",NULL);
 	//Total_Running_apps = Get_Total_Device_Apps();
 
-	//fprintf(stdout," Total_Running_apps = %d\n",Total_Running_apps);
+	////fprintf(stdout," Total_Running_apps = %d\n",Total_Running_apps);
 
 	//if ( Total_Running_apps > 0 )
 	//	Running_Apps_Details(Total_Running_apps,Runningchildnode);

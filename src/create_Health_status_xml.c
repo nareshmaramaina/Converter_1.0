@@ -16,7 +16,7 @@ int Health_Status_xml_frame()
 	int sim_num =0;
 	int Apps_Downloads=0,Firmware_Downloads=0;
 
-	fprintf(stdout,"\n\n Health_Status.xml Framing ...\n\n");
+	//fprintf(stdout,"\n\n Health_Status.xml Framing ...\n\n");
 	xmlDocPtr doc = NULL;       /* document pointer */
 	xmlNodePtr root_node = NULL, childnode = NULL;/* node pointers */
 
@@ -31,7 +31,7 @@ int Health_Status_xml_frame()
 	xmlNewChild(root_node, NULL, BAD_CAST "SerialNo",BAD_CAST Buff[1]);
 	xmlNewChild(root_node, NULL, BAD_CAST "Date_Time", BAD_CAST module.Date_time);
 
-	if( (CONFIG.GPS || CONFIG.geo_location ) && (strstr(Buff[16],"Error") == NULL ) )
+	if( (CONFIG.GPS || CONFIG.geo_location ) && strlen((Buff[16])) > 0 && (strstr(Buff[16],"Error") == NULL ) )
 	{
 		int File_day=0,File_month=0,File_year=0,File_Hr=0,File_Min=0;
 		
@@ -58,36 +58,34 @@ int Health_Status_xml_frame()
 		childnode = xmlNewChild(root_node, NULL, BAD_CAST "GPS",NULL);
 		xmlNewChild(childnode, NULL, BAD_CAST "Latitude", BAD_CAST module.GPS.Latitude);
 		xmlNewChild(childnode, NULL, BAD_CAST "Longitude", BAD_CAST module.GPS.Longitude);
-		if ( strstr(module.GPS.Captured_Time,"0000-00-00") != NULL )
-			fprintf(stdout,"Date Not found, module.GPS.Captured_Time = %s\n",module.GPS.Captured_Time);
-		else 
+		if ( strstr(module.GPS.Captured_Time,"0000-00-00") == NULL )
 			xmlNewChild(childnode, NULL, BAD_CAST "Captured_Time", BAD_CAST module.GPS.Captured_Time);
 	}
 	//Firmware_Downloads = Get_Total_Downloaded_Updates(FIRMWARE);
 	if ( Firmware_Downloads > 0 )
 	{
-		fprintf(stdout,"%d Firmware Downloads are Found \n",Firmware_Downloads);
+		//fprintf(stdout,"%d Firmware Downloads are Found \n",Firmware_Downloads);
 		childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofFirmwareDownloads",NULL);
 		//	FirmwareDownloadsDetails(Firmware_Downloads,childnode);		
 	}
 	else
 	{
-		fprintf(stdout,"No Firmware Downloads Found\n");
+		//fprintf(stdout,"No Firmware Downloads Found\n");
 	}
 	//Apps_Downloads = Get_Total_Downloaded_Updates(APPLICATION);
 	if ( Apps_Downloads > 0 )
 	{
-		fprintf(stdout,"%d Application Downloads are Found \n",Apps_Downloads);
+		//fprintf(stdout,"%d Application Downloads are Found \n",Apps_Downloads);
 		childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofApplicationDownloads",NULL);
 		//ApplicationDownloadsDetails(Apps_Downloads,childnode);
 
 	}
 	else
-		fprintf(stdout,"No Application Downloads Found\n");
+		//fprintf(stdout,"No Application Downloads Found\n");
 
 	if( CONFIG.Iris_or_Biomat )
 	{
-		if( strlen(Buff[10]) != 0 && strstr(Buff[12],"ERROR") == NULL)
+		if( strlen(Buff[10]) != 0 && strstr(Buff[10],"ERROR") == NULL)
 			xmlNewChild(root_node, NULL, BAD_CAST "IRIS", BAD_CAST Buff[10]);
 		else 	
 			xmlNewChild(root_node, NULL, BAD_CAST "IRIS", BAD_CAST "NotConnected");
@@ -95,9 +93,9 @@ int Health_Status_xml_frame()
 	if( CONFIG.Printer )
 	{
 		if( strlen(Buff[23]) != 0 && strstr(Buff[23],"ERROR") == NULL)
-			xmlNewChild(root_node, NULL, BAD_CAST "PaperStatus", BAD_CAST "Yes");
+			xmlNewChild(root_node, NULL, BAD_CAST "PaperStatus", BAD_CAST "Present");
 		else 	
-			xmlNewChild(root_node, NULL, BAD_CAST "PaperStatus", BAD_CAST "No");
+			xmlNewChild(root_node, NULL, BAD_CAST "PaperStatus", BAD_CAST "NotPresent");
 	}
 
 	if( strlen(Buff[28]) != 0 && strstr(Buff[28],"ERROR") == NULL)
@@ -309,10 +307,8 @@ int Update_Simdb_and_Signalmode()
                 ptr = strtok(Buffer, "/");
                 if(ptr!=NULL)
                 {
-			fprintf(stdout,"Ptr = %s\n",ptr);
                         for( i=0; ( ( ptr = strtok(NULL, "/") ) != NULL );i++)
                         {
-			fprintf(stdout,"Ptr = %s\n",ptr);
                                 if( i == 0)
                                         strcpy(module.Sim2_db,ptr);
                                 if( i == 1)
@@ -349,6 +345,6 @@ int Update_Simdb_and_Signalmode()
 	if ( strlen( module.SIM1SignalMode ) <= 0 || strcmp(module.SIM1SignalMode,"G") == 0 )
 		sim_num=2;
 	else sim_num=1;
-	fprintf(stdout,"module.Sim1_db = %s,module.SIM1SignalMode, = %s, module.Sim2_db = %s,module.SIM2SignalMode, = %s\n",module.Sim1_db,module.SIM1SignalMode,module.Sim2_db,module.SIM2SignalMode);
+//	//fprintf(stdout,"module.Sim1_db = %s,module.SIM1SignalMode, = %s, module.Sim2_db = %s,module.SIM2SignalMode, = %s\n",module.Sim1_db,module.SIM1SignalMode,module.Sim2_db,module.SIM2SignalMode);
 	return sim_num;
 }

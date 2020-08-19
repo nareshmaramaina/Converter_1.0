@@ -8,7 +8,7 @@ extern char Buff[51][128];
 
 int Hardware_xml_frame()
 {
-	fprintf(stdout,"\n\nHardware xml Framing ...\n\n");
+	//fprintf(stdout,"\n\nHardware xml Framing ...\n\n");
 	xmlDocPtr doc = NULL;
 	/* document pointer */
 	xmlNodePtr node = NULL;

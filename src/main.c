@@ -12,7 +12,7 @@ void Update_Current_Date_with_Time()
         Today = localtime (&tv.tv_sec) ;
 
         sprintf(module.Date_time,"%04d-%02d-%02dT%02d:%02d:%02d",Today->tm_year+1900,Today->tm_mon+1,Today->tm_mday,Today->tm_hour,Today->tm_min,Today->tm_sec);
-        fprintf(stdout,"Today Date and Time, %s \n",module.Date_time);
+        //fprintf(stdout,"Today Date and Time, %s \n",module.Date_time);
 
         return;
 }
@@ -32,7 +32,7 @@ int parseStory (xmlDocPtr doc, xmlNodePtr cur)
 			{
 				key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
 				strcpy(Buff[i],key);
-				printf("%d) Buff[%d],cur->name = %s Key = %s\n",i,i,cur->name, key);
+			//	printf("%d) Buff[%d],cur->name = %s Key = %s\n",i,i,cur->name, key);
 				break;
 			}
 		}
@@ -51,10 +51,10 @@ int main(int argc,char *argv[])
 
 	if ( argc  < 2 )
 	{
-		fprintf(stdout,"Give Health xml Argument\n");
+		//fprintf(stdout,"Give Health xml Argument\n");
 		return -1;
 	}
-	//fprintf(stdout,"Parsing %s file\n",argv[1]);
+	////fprintf(stdout,"Parsing %s file\n",argv[1]);
 	doc = xmlParseFile(argv[1]);
 	if (doc == NULL )
 	{
@@ -115,5 +115,5 @@ int main(int argc,char *argv[])
 	Health_Status_xml_frame();
 	Update_Current_Date_with_Time();
 	BootTime_Status_xml_frame();
-	system("cat /opt/BootTime_Status.xml  /opt/Hardware_Status.xml  /opt/Health_Status.xml");
+//	system("cat /opt/BootTime_Status.xml  /opt/Hardware_Status.xml  /opt/Health_Status.xml");
 }
