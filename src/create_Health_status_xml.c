@@ -16,7 +16,7 @@ int Health_Status_xml_frame()
 	int sim_num =0;
 	int Apps_Downloads=0,Firmware_Downloads=0;
 
-	//fprintf(stdout,"\n\n Health_Status.xml Framing ...\n\n");
+	/////fprintf(stdout,"\n\n Health_Status.xml Framing ...\n\n");
 	xmlDocPtr doc = NULL;       /* document pointer */
 	xmlNodePtr root_node = NULL, childnode = NULL;/* node pointers */
 
@@ -64,24 +64,24 @@ int Health_Status_xml_frame()
 	//Firmware_Downloads = Get_Total_Downloaded_Updates(FIRMWARE);
 	if ( Firmware_Downloads > 0 )
 	{
-		//fprintf(stdout,"%d Firmware Downloads are Found \n",Firmware_Downloads);
+		/////fprintf(stdout,"%d Firmware Downloads are Found \n",Firmware_Downloads);
 		childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofFirmwareDownloads",NULL);
 		//	FirmwareDownloadsDetails(Firmware_Downloads,childnode);		
 	}
 	else
 	{
-		//fprintf(stdout,"No Firmware Downloads Found\n");
+		/////fprintf(stdout,"No Firmware Downloads Found\n");
 	}
 	//Apps_Downloads = Get_Total_Downloaded_Updates(APPLICATION);
 	if ( Apps_Downloads > 0 )
 	{
-		//fprintf(stdout,"%d Application Downloads are Found \n",Apps_Downloads);
+		/////fprintf(stdout,"%d Application Downloads are Found \n",Apps_Downloads);
 		childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofApplicationDownloads",NULL);
 		//ApplicationDownloadsDetails(Apps_Downloads,childnode);
 
 	}
 	else
-		//fprintf(stdout,"No Application Downloads Found\n");
+		/////fprintf(stdout,"No Application Downloads Found\n");
 
 	if( CONFIG.Iris_or_Biomat )
 	{
@@ -136,9 +136,9 @@ int Health_Status_xml_frame()
 	}
 	xmlNewChild(root_node, NULL, BAD_CAST "Comm", BAD_CAST Buff[7]);
 
+	sim_num = Update_Simdb_and_Signalmode();	
 	if( strcmp(Buff[7],"GSM") == 0 )
 	{
-		sim_num = Update_Simdb_and_Signalmode();	
 		if ( sim_num == 1)
 		{
 			xmlNewChild(root_node, NULL, BAD_CAST "SIM1db", BAD_CAST module.Sim1_db);
@@ -256,9 +256,13 @@ int Update_Simdb_and_Signalmode()
 	int Sig_Strength=0, sim_num=0;
 	memset(module.SIM1SignalMode,0,sizeof(module.SIM1SignalMode));
 	memset(module.SIM2SignalMode,0,sizeof(module.SIM2SignalMode));
+	//fprintf(stdout,"Sim1Details %s\n",Buff[30]);
+	//fprintf(stdout,"SimDetails %s\n",Buff[31]);
+	//fprintf(stdout,"Sim2Details %s\n",Buff[32]);
 
 	if (  strlen(Buff[30]) > 0 && strstr(Buff[30],"ERROR")==NULL )
 	{
+	//fprintf(stdout,"Sim1Details %s\n",Buff[30]);
 		memset(Buffer,0,sizeof(Buffer));
 		strcpy(Buffer,Buff[30]);
 		ptr = strtok(Buffer, "/");
@@ -280,6 +284,7 @@ int Update_Simdb_and_Signalmode()
 	}
 	else if (  strlen(Buff[31]) > 0 && strstr(Buff[31],"ERROR")==NULL )
         {
+	//fprintf(stdout,"SimDetails %s\n",Buff[31]);
                 memset(Buffer,0,sizeof(Buffer));
                 strcpy(Buffer,Buff[31]);
                 ptr = strtok(Buffer, "/");
@@ -302,6 +307,7 @@ int Update_Simdb_and_Signalmode()
 	
 	 if (  strlen(Buff[32]) > 0 && strstr(Buff[32],"ERROR")==NULL )
         {
+	//fprintf(stdout,"Sim2Details %s\n",Buff[32]);
                 memset(Buffer,0,sizeof(Buffer));
                 strcpy(Buffer,Buff[32]);
                 ptr = strtok(Buffer, "/");
@@ -345,6 +351,6 @@ int Update_Simdb_and_Signalmode()
 	if ( strlen( module.SIM1SignalMode ) <= 0 || strcmp(module.SIM1SignalMode,"G") == 0 )
 		sim_num=2;
 	else sim_num=1;
-//	//fprintf(stdout,"module.Sim1_db = %s,module.SIM1SignalMode, = %s, module.Sim2_db = %s,module.SIM2SignalMode, = %s\n",module.Sim1_db,module.SIM1SignalMode,module.Sim2_db,module.SIM2SignalMode);
+//	/////fprintf(stdout,"module.Sim1_db = %s,module.SIM1SignalMode, = %s, module.Sim2_db = %s,module.SIM2SignalMode, = %s\n",module.Sim1_db,module.SIM1SignalMode,module.Sim2_db,module.SIM2SignalMode);
 	return sim_num;
 }

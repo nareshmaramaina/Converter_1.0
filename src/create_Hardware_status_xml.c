@@ -93,7 +93,7 @@ int Hardware_xml_frame()
 	}
 	else 
 	{
-		xmlNewChild(node, NULL, BAD_CAST "GSMVersionExists", BAD_CAST "No");
+		xmlNewChild(node, NULL, BAD_CAST "GSMVersionExists", BAD_CAST "Error");
 		xmlNewChild(node, NULL, BAD_CAST "GSMVersion",NULL );
 	}
 	if( access("/etc/autoapn/autoapn_config.xml",F_OK) == 0 )
@@ -105,7 +105,7 @@ int Hardware_xml_frame()
 		}
 		else 
 		{
-			xmlNewChild(node, NULL, BAD_CAST "GSM_ModuleExists",BAD_CAST "No");
+			xmlNewChild(node, NULL, BAD_CAST "GSM_ModuleExists",BAD_CAST "Error");
 
 			xmlNewChild(node, NULL, BAD_CAST "GSM_Module", NULL);
 		}
