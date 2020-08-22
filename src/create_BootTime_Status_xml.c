@@ -158,7 +158,7 @@ int BootTime_Status_xml_frame()
 		xmlNewChild(childnode, NULL, BAD_CAST "Day_discharged_mins", BAD_CAST module.BatteryInfo.Day_discharged_mins);
 	}
 
-	childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofApplications",NULL);
+/*	childnode = xmlNewChild(root_node, NULL, BAD_CAST "ArrayofApplications",NULL);
 
 
 	//Total_Server_Apps = Get_Total_Server_Apps();
@@ -178,7 +178,7 @@ int BootTime_Status_xml_frame()
 
 	xmlNewChild(root_node, NULL, BAD_CAST "FirmwareName", BAD_CAST module.FirmwareName);
 
-	xmlNewChild(root_node, NULL, BAD_CAST "FirmwareVersion", BAD_CAST module.FirmwareVersion);
+	xmlNewChild(root_node, NULL, BAD_CAST "FirmwareVersion", BAD_CAST module.FirmwareVersion); */
 
 	if( CONFIG.IrisRDVer_and_SNo  )
 	{
@@ -314,7 +314,7 @@ int BootTime_Status_xml_frame()
 
 	}
 	xmlNewChild(root_node, NULL, BAD_CAST "RHMSClientVersion", BAD_CAST "1.1.1");
-	xmlNewChild(root_node, NULL, BAD_CAST "AutoapnAppVersion", BAD_CAST "NotFound");
+	xmlNewChild(root_node, NULL, BAD_CAST "AutoapnAppVersion", BAD_CAST "1.1");
 
 
 
